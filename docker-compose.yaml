@@ -1,0 +1,17 @@
+services:
+  godev-server:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile
+    image: godev-server:1.25.5
+    container_name: godev-container
+    hostname: godev-server
+    volumes:
+    - /home/jjuna/docker/container/godev-server/home:/home
+    - /home/jjuna/docker/container/godev-server/go:/go
+    ports:
+    - "2603:22"
+    privileged: true
+    restart: always
+    environment:
+      - TZ=Asia/Seoul
