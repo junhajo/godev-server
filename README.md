@@ -79,7 +79,7 @@ drwxr-xr-x 4 5000 2000 4096 Apr  2 15:32 go
 ```bash
 $ sudo chown 5000:2000 ~/container/godev-server/home/<username>
 $ ls -al ~/container/godev-server/home/
-drwxr-xr-x  2 5000 2000 4096 Apr  2 15:32 5gcf
+drwxr-xr-x  2 5000 2000 4096 Apr  2 15:32 <username>
 ```
 
 ### 4. docker-compose.yaml
