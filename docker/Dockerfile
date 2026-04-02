@@ -39,6 +39,7 @@ RUN \
 # 1. 사용자(5000) 및 그룹(2000) 설정 (bash 기본 쉘)
     # groupadd -g ${GID} ${GROUPNAME} \
     # && useradd -m -u ${UID} -g ${GROUPNAME} -s /bin/bash ${USERNAME} \
+    # && echo "${USERNAME}:contela" | chpasswd \
     printf "#%s ALL=(ALL) NOPASSWD:ALL" "${UID}" > /etc/sudoers.d/super_user \
     && chmod 0440 /etc/sudoers.d/super_user \
 # 2. SSH 서버 설정
