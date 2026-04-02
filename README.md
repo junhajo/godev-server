@@ -16,37 +16,75 @@ Go 언어 개발 서버
 ### 1. git
 ```bash
 $ git clone https://github.com/junhajo/godev-server.git
+
+$ tree ./godev-server
+./
+├── docker
+│   ├── Dockerfile
+│   └── etc
+│       ├── group
+│       ├── passwd
+│       └── shadow
+├── docker-compose.yaml
+├── .env
+├── .gitignore
+├── LICENSE
+├── README.md
+└── svc.sh
 ```
 
 ### 2. Dockerfile
-* path: ./docker/Dockerfile
-* UID/GID: 5000/2000 추천
-```
+### 2.1. 새로 계정과 그룹을 생성하는 경우
+* `./docker/Dockerfile` 변경
+* UID 5000, GID 2000 추천
+```diff
 ARG GO_VERSION=1.25.5 \
+-    USERNAME=user \
+-    GROUPNAME=group \
++    USERNAME=5gcf \
++    GROUPNAME=core \
     UID=5000 \
     GID=2000
 ...
+-COPY ./etc /etc
++# COPY ./etc /etc
+...
+-    # groupadd -g ${GID} core \
+-    # && useradd -m -u ${UID} -g core -s /bin/bash ${USERNAME} \
+-    printf "#%s ALL=(ALL) NOPASSWD:ALL" "${UID}" > /etc/sudoers.d/super_user \
++    groupadd -g ${GID} core \
++    && useradd -m -u ${UID} -g core -s /bin/bash ${USERNAME} \
++    && printf "#%s ALL=(ALL) NOPASSWD:ALL" "${UID}" > /etc/sudoers.d/super_user \
 ```
-* ssh port: 22
+> [!IMPORTANT]
+> 변경한 Dockerfile을 commit/push 하지 말 것!!!
+
+### 2.2. 기존 계정과 그룹을 사용하는 경우
+* `./docker/etc/`
+* group, passwd, shadow 파일을 복사
+```bash
+$ cp group ./docker/etc/
+$ cp passwd ./docker/etc/
+$ cp group ./docker/etc/
 ```
-EXPOSE 22
-```
+* `~/container/godev-server/home/<username>`
+* 기존 계정의 home directory가 있는지 확인하고, 없으면 복사하거나 생성
 
 ### 3. docker-compose.yaml
-* path: ./docker-compose.yaml
+* `./docker-compose.yaml`
 * image name
-```
+```yaml
     image: godev-server:${GO_VERSION}
 ```
 * volumes
-```
+```yaml
     volumes:
-    - /home/jjuna/docker/container/godev-server/home:/home
-    - /home/jjuna/docker/container/godev-server/go:/go
+    - ~/container/godev-server/home:/home
+    - ~/container/godev-server/go:/go
 ```
 
 ### 4. .env
-* .env path: ./.env
+* `./.env`
 * Go version & ssh port forwarding
 ```bash
 $ cat ./.env
