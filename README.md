@@ -13,27 +13,20 @@ Go 개발 서버
 * PATH=/usr/local/go/bin:$PATH
 
 ## Setup
-각 branch의 README 참고
 * basic: 새 계정 생성
 * advanced: 기존 계정을 재사용
 
-## Usage
+### 1. Git
 ```bash
-# image build
-$ ./svc build
+$ git clone https://github.com/junhajo/godev-server.git
+$ cd ./godev-server
+$ git checkout basic
+또는
+$ git checkout advanced
+```
 
-# container run
-$ ./svc run
-
-# local access via ssh
-$ ./svc ssh
-
-# external access via ssh
-$ ssh <host-ip> -p 2603
-
-# container stop
-$ ./svc stop
-
-# image remove
-$ ./svc clean
+### 2. 각 branch의 README 참고
+```bash
+$ ls README.md 
+README.md
 ```
