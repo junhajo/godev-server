@@ -68,7 +68,7 @@ COPY ./etc /etc
 ### 3. Host volume 생성
 ```bash
 $ mkdir -p ~/container/godev-server/home/<username>
-$ mkdir -p ~/container/godev-server/home/go
+$ mkdir -p ~/container/godev-server/go
 ```
 
 ```bash
