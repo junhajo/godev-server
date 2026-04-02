@@ -1,8 +1,8 @@
 FROM ubuntu:22.04
 
 ARG GO_VERSION=1.25.5 \
-    USERNAME=user \
-    GROUPNAME=group \
+    USERNAME=5gcf \
+    GROUPNAME=contela \
     UID=5000 \
     GID=2000
 
