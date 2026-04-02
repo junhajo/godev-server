@@ -1,10 +1,10 @@
 FROM ubuntu:22.04
 
 ARG GO_VERSION=1.25.5 \
-    USERNAME=5gcf \
-    GROUPNAME=contela \
     UID=5000 \
     GID=2000
+
+COPY ./etc /etc
 
 RUN \
 # 1. 패키지 설치
@@ -27,8 +27,6 @@ RUN \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-COPY ./etc /etc
-
 RUN \
 # Go 1.25.5 설치
     curl -OL https://golang.org/dl/go${GO_VERSION}.linux-amd64.tar.gz \
@@ -36,10 +34,7 @@ RUN \
     && rm go${GO_VERSION}.linux-amd64.tar.gz
 
 RUN \
-# 1. 사용자(5000) 및 그룹(2000) 설정 (bash 기본 쉘)
-    # groupadd -g ${GID} ${GROUPNAME} \
-    # && useradd -m -u ${UID} -g ${GROUPNAME} -s /bin/bash ${USERNAME} \
-    # && echo "${USERNAME}:contela" | chpasswd \
+# 1. 사용자(5000) 및 그룹(2000) 설정
     printf "#%s ALL=(ALL) NOPASSWD:ALL" "${UID}" > /etc/sudoers.d/super_user \
     && chmod 0440 /etc/sudoers.d/super_user \
 # 2. SSH 서버 설정
