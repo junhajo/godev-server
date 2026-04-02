@@ -27,8 +27,6 @@ RUN \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-COPY ./etc /etc
-
 RUN \
 # Go 1.25.5 설치
     curl -OL https://golang.org/dl/go${GO_VERSION}.linux-amd64.tar.gz \
@@ -37,10 +35,10 @@ RUN \
 
 RUN \
 # 1. 사용자(5000) 및 그룹(2000) 설정 (bash 기본 쉘)
-    # groupadd -g ${GID} ${GROUPNAME} \
-    # && useradd -m -u ${UID} -g ${GROUPNAME} -s /bin/bash ${USERNAME} \
-    # && echo "${USERNAME}:contela" | chpasswd \
-    printf "#%s ALL=(ALL) NOPASSWD:ALL" "${UID}" > /etc/sudoers.d/super_user \
+    groupadd -g ${GID} ${GROUPNAME} \
+    && useradd -m -u ${UID} -g ${GROUPNAME} -s /bin/bash ${USERNAME} \
+    && echo "${USERNAME}:contela" | chpasswd \
+    && printf "#%s ALL=(ALL) NOPASSWD:ALL" "${UID}" > /etc/sudoers.d/super_user \
     && chmod 0440 /etc/sudoers.d/super_user \
 # 2. SSH 서버 설정
     && mkdir /var/run/sshd \
