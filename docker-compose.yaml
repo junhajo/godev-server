@@ -7,10 +7,10 @@ services:
     container_name: godev-container
     hostname: godev-server
     volumes:
-    - /home/jjuna/docker/container/godev-server/home:/home
-    - /home/jjuna/docker/container/godev-server/go:/go
+    - ~/container/godev-server/home:/home
+    - ~/container/godev-server/go:/go
     ports:
-    - "2603:22"
+    - "${HOST_PORT}:22"
     privileged: true
     restart: always
     environment:

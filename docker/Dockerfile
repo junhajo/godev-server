@@ -1,6 +1,8 @@
 FROM ubuntu:22.04
 
 ARG GO_VERSION=1.25.5 \
+    USERNAME=5gcf \
+    GROUPNAME=core \
     UID=5000 \
     GID=2000
 
@@ -35,8 +37,8 @@ RUN \
 
 RUN \
 # 1. 사용자(5000) 및 그룹(2000) 설정 (zsh 기본 쉘)
-    # groupadd -g ${GID} core \
-    # && useradd -m -u ${UID} -g core -s /bin/zsh jjuna \
+    # groupadd -g ${GID} ${GROUPNAME} \
+    # && useradd -m -u ${UID} -g ${GROUPNAME} -s /bin/zsh ${USERNAME} \
     printf "#%s ALL=(ALL) NOPASSWD:ALL" "${UID}" > /etc/sudoers.d/super_user \
     && chmod 0440 /etc/sudoers.d/super_user \
 # 2. SSH 서버 설정
