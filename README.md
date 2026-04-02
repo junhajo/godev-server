@@ -13,6 +13,8 @@ Go 언어 개발 서버
 * PATH=/usr/local/go/bin:$PATH
 
 ## Setup
+초기 setup시 1, 2, 5번은 반드시 실행
+
 ### 1. git
 ```bash
 $ git clone https://github.com/junhajo/godev-server.git
@@ -92,6 +94,11 @@ GO_VERSION=1.25.5
 HOST_PORT=2603
 ```
 
+### 5. host volume 생성
+```bash
+$ mkdir -p ~/container/godev-server/home/<username>
+```
+
 ## Usage
 ```bash
 # image build
@@ -112,3 +119,7 @@ $ ./svc stop
 # image remove
 $ ./svc clean
 ```
+> [!TIP]
+> 처음 접속한 경우 다음의 명령을 수행
+>
+> cp /etc/skel/.bashrc /etc/skel/.profile .
