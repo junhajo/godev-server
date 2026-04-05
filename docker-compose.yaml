@@ -3,7 +3,7 @@ services:
     build:
       context: ./docker
       dockerfile: Dockerfile
-    image: godev-server:${GO_VERSION}
+    image: docker.io/junhajo/godev-server:${GO_VERSION}
     container_name: godev-container
     hostname: godev-server
     volumes:
