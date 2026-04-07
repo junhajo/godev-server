@@ -51,6 +51,6 @@ case "$1" in
     stop)  stop_container ;;
     clean) clean_all ;;
     re)    stop_container && build_image && run_container ;;
-    ssh)   ssh localhost -p 2603 ;;
+    ssh)   ssh localhost -p 2604 ;;
     *)     usage ;;
 esac
