@@ -104,7 +104,7 @@ drwxr-xr-x  2 5000 2000 4096 Apr  2 15:32 <username>
 ```bash
 $ cat ./.env
 GO_VERSION=1.25.5
-HOST_PORT=2603
+HOST_PORT=2604
 ```
 
 ## Usage
@@ -119,7 +119,7 @@ $ ./svc run
 $ ./svc ssh
 
 # external access via ssh
-$ ssh <host-ip> -p 2603
+$ ssh <host-ip> -p 2604
 
 # container stop
 $ ./svc stop
