@@ -4,12 +4,15 @@ ARG GO_VERSION=1.25.5 \
     USERNAME=5gcf \
     GROUPNAME=contela \
     UID=5000 \
-    GID=2000
+    GID=2000 \
+    DEBIAN_FRONTEND=noninteractive
 
 RUN \
 # 1. 패키지 설치
-    apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    apt-get update && apt-get install -y \
+    software-properties-common \
+    && add-apt-repository ppa:jonathonf/vim \
+    && apt-get update && apt-get install -y \
     build-essential \
     ca-certificates \
     curl \
@@ -53,7 +56,10 @@ RUN \
     && echo "GOPATH=/go" >> /etc/environment \
     && echo "LANG=ko_KR.UTF-8" >> /etc/environment \
     && echo "LC_ALL=ko_KR.UTF-8" >> /etc/environment \
-    && sed -i 's|^PATH="|PATH="/usr/local/go/bin:/go/bin:|' /etc/environment
+    && sed -i 's|^PATH="|PATH="/usr/local/go/bin:/go/bin:|' /etc/environment \
+# 6. vim-plug
+    && curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 ENV GOPATH=/go \
     PATH=$PATH:/usr/local/go/bin:/go/bin \
