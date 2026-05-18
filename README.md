@@ -73,45 +73,55 @@ $ mkdir -p ~/container/mongodb/data/db
 ```
 
 ```bash
-$ sudo chown 5000:2000 ~/container/godev-server/home/
+$ sudo chown -R 5000:2000 ~/container/godev-server/home/
 $ sudo chown 5000:2000 ~/container/godev-server/go/
+$
 $ ls -al ~/container/godev-server/
 drwxr-xr-x 4 5000 2000 4096 Apr  2 15:32 home
 drwxr-xr-x 4 5000 2000 4096 Apr  2 15:32 go
-```
-
-```bash
-$ sudo chown 5000:2000 ~/container/godev-server/home/<username>
+$
 $ ls -al ~/container/godev-server/home/
 drwxr-xr-x  2 5000 2000 4096 Apr  2 15:32 <username>
 ```
 
 ```bash
-$ sudo chown 5000:2000 ~/container/mongodb/data/db
-$ ls -al ~/container/mongodb/data/
-drwxr-xr-x  2 5000 2000 4096 Apr  2 15:32 db
+$ sudo chown -R 5000:2000 ~/container/mongodb/data/db
+$
+$ ls -al ~/container/mongodb/
+drwxr-xr-x  2 5000 2000 4096 Apr  2 15:32 data
+$
+$ ls -al ~/container/mongodb/data
+drwxr-xr-x  2 5000 2000 4096 Apr  2 15:32 data/db
 ```
 
 ### 4. docker-compose.yaml
 * `./docker-compose.yaml`
-* image name
+* godev-server container
 ```yaml
+  godev-server:
     image: godev-server:${GO_VERSION}
-```
-* volumes
-```yaml
+...
     volumes:
     - ~/container/godev-server/home:/home
     - ~/container/godev-server/go:/go
 ```
+* mongodb container
+```yaml
+  mongodb:
+    image: mongo:4.4
+...
+    volumes:
+    - ~/container/mongodb/data/db:/data/db
+```
 
 ### 5. .env
 * `./.env`
-* Go version & ssh port forwarding
+* Go version & ssh port forwarding & mongodb port
 ```bash
 $ cat ./.env
 GO_VERSION=1.25.5
 HOST_PORT=26041
+DB_PORT=27071
 ```
 
 ## Usage
