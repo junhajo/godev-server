@@ -25,9 +25,9 @@ services:
   mongodb:
     container_name: mongodb
     image: mongo:4.4
-    command: mongod --port 27017
+    command: mongod --port ${DB_PORT}
     expose:
-      - "27017"
+      - "${DB_PORT}"
     volumes:
       - ~/container/mongodb/data/db:/data/db
     restart: always
