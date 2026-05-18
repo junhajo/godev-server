@@ -4,14 +4,43 @@ services:
       context: ./docker
       dockerfile: Dockerfile
     image: docker.io/junhajo/godev-server:${GO_VERSION}
-    container_name: godev-container
-    hostname: godev-server
+    container_name: godev-server
+    hostname: godev-server-ubuntu-22045
     volumes:
-    - ~/container/godev-server/home:/home
-    - ~/container/godev-server/go:/go
+      - ~/container/godev-server/home:/home
+      - ~/container/godev-server/go:/go
     ports:
-    - "${HOST_PORT}:22"
+      - "${HOST_PORT}:22"
     privileged: true
     restart: always
     environment:
-    - TZ=Asia/Seoul
+      - TZ=Asia/Seoul
+    networks:
+      godev-network:
+        aliases:
+          - godev
+    depends_on:
+      - mongodb
+
+  mongodb:
+    container_name: mongodb
+    image: mongo:4.4
+    command: mongod --port 27017
+    expose:
+      - "27017"
+    volumes:
+      - ~/container/mongodb/data/db:/data/db
+    restart: always
+    networks:
+      godev-network:
+        aliases:
+          - mongodb
+
+networks:
+  godev-network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.100.200.0/24
+    driver_opts:
+      com.docker.network.bridge.name: br-godev

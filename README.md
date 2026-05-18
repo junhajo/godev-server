@@ -69,6 +69,7 @@ COPY ./etc /etc
 ```bash
 $ mkdir -p ~/container/godev-server/home/<username>
 $ mkdir -p ~/container/godev-server/go
+$ mkdir -p ~/container/mongodb/data/db
 ```
 
 ```bash
@@ -83,6 +84,12 @@ drwxr-xr-x 4 5000 2000 4096 Apr  2 15:32 go
 $ sudo chown 5000:2000 ~/container/godev-server/home/<username>
 $ ls -al ~/container/godev-server/home/
 drwxr-xr-x  2 5000 2000 4096 Apr  2 15:32 <username>
+```
+
+```bash
+$ sudo chown 5000:2000 ~/container/mongodb/data/db
+$ ls -al ~/container/mongodb/data/
+drwxr-xr-x  2 5000 2000 4096 Apr  2 15:32 db
 ```
 
 ### 4. docker-compose.yaml
@@ -104,7 +111,7 @@ drwxr-xr-x  2 5000 2000 4096 Apr  2 15:32 <username>
 ```bash
 $ cat ./.env
 GO_VERSION=1.25.5
-HOST_PORT=2604
+HOST_PORT=26041
 ```
 
 ## Usage
@@ -119,7 +126,7 @@ $ ./svc run
 $ ./svc ssh
 
 # external access via ssh
-$ ssh <host-ip> -p 2604
+$ ssh <host-ip> -p 26041
 
 # container stop
 $ ./svc stop
