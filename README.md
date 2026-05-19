@@ -70,6 +70,7 @@ COPY ./etc /etc
 $ mkdir -p ~/container/godev-server/home/<username>
 $ mkdir -p ~/container/godev-server/go
 $ mkdir -p ~/container/mongodb/data/db
+$ mkdir -p ~/container/redis/data
 ```
 
 ```bash
@@ -91,7 +92,14 @@ $ ls -al ~/container/mongodb/
 drwxr-xr-x  2 5000 2000 4096 Apr  2 15:32 data
 $
 $ ls -al ~/container/mongodb/data
-drwxr-xr-x  2 5000 2000 4096 Apr  2 15:32 data/db
+drwxr-xr-x  2 5000 2000 4096 Apr  2 15:32 db
+```
+
+```bash
+$ sudo chown -R 5000:2000 ~/container/redis/data
+$
+$ ls -al ~/container/redis/
+drwxr-xr-x  2 5000 2000 4096 Apr  2 15:32 data
 ```
 
 ### 4. docker-compose.yaml
@@ -113,15 +121,24 @@ drwxr-xr-x  2 5000 2000 4096 Apr  2 15:32 data/db
     volumes:
     - ~/container/mongodb/data/db:/data/db
 ```
+* redis container
+```yaml
+  redis:
+    image: redis:7.2:alpine
+...
+    volumes:
+    - ~/container/redis/data:/data
+```
 
 ### 5. .env
 * `./.env`
-* Go version & ssh port forwarding & mongodb port
+* Go version & ssh port forwarding & mongodb port & redis port
 ```bash
 $ cat ./.env
 GO_VERSION=1.25.5
 HOST_PORT=26041
-DB_PORT=27071
+MONGODB_PORT=27017
+REDIS_PORT=6379
 ```
 
 ## Usage
