@@ -21,13 +21,14 @@ services:
           - godev
     depends_on:
       - mongodb
+      - redis
 
   mongodb:
     container_name: mongodb
     image: mongo:4.4
-    command: mongod --port ${DB_PORT}
+    command: mongod --port ${MONGODB_PORT}
     expose:
-      - "${DB_PORT}"
+      - "${MONGODB_PORT}"
     volumes:
       - ~/container/mongodb/data/db:/data/db
     restart: always
@@ -35,6 +36,20 @@ services:
       godev-network:
         aliases:
           - mongodb
+
+  redis:
+    container_name: redis
+    image: redis:7.2-alpine
+    command: redis-server --port ${REDIS_PORT}
+    expose:
+      - "${REDIS_PORT}"
+    volumes:
+      - ~/container/redis/data:/data
+    restart: always
+    networks:
+      godev-network:
+        aliases:
+          - redis
 
 networks:
   godev-network:
