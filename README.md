@@ -89,7 +89,7 @@ $ ls -al ~/container/mongodb/
 drwxr-xr-x  2 5000 2000 4096 Apr  2 15:32 data
 $
 $ ls -al ~/container/mongodb/data
-drwxr-xr-x  2 5000 2000 4096 Apr  2 15:32 data/db
+drwxr-xr-x  2 5000 2000 4096 Apr  2 15:32 db
 ```
 
 ```bash
@@ -129,7 +129,7 @@ drwxr-xr-x  2 5000 2000 4096 Apr  2 15:32 data
 
 ### 5. .env
 * `./.env`
-* Go version & ssh port forwarding & mongodb port
+* Go version & ssh port forwarding & mongodb port & redis port
 ```bash
 $ cat ./.env
 GO_VERSION=1.25.5
