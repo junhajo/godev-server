@@ -16,7 +16,7 @@ services:
     environment:
       - TZ=Asia/Seoul
     networks:
-      godev-network:
+      bridge-network:
         aliases:
           - godev
     depends_on:
@@ -33,7 +33,7 @@ services:
       - ~/container/mongodb/data/db:/data/db
     restart: always
     networks:
-      godev-network:
+      bridge-network:
         aliases:
           - mongodb
 
@@ -47,15 +47,15 @@ services:
       - ~/container/redis/data:/data
     restart: always
     networks:
-      godev-network:
+      bridge-network:
         aliases:
           - redis
 
 networks:
-  godev-network:
+  bridge-network:
     ipam:
       driver: default
       config:
         - subnet: 10.100.200.0/24
     driver_opts:
-      com.docker.network.bridge.name: br-godev
+      com.docker.network.bridge.name: godev-bridge
