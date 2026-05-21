@@ -11,7 +11,6 @@ services:
       - ~/container/godev-server/go:/go
     ports:
       - "${HOST_PORT}:22"
-    privileged: true
     restart: always
     environment:
       - TZ=Asia/Seoul
@@ -20,11 +19,11 @@ services:
         aliases:
           - godev
     depends_on:
-      - mongodb
-      - redis
+      - godev-mongodb
+      - godev-redis
 
-  mongodb:
-    container_name: mongodb
+  godev-mongodb:
+    container_name: godev-mongodb
     image: mongo:4.4
     command: mongod --port ${MONGODB_PORT}
     expose:
@@ -37,8 +36,8 @@ services:
         aliases:
           - mongodb
 
-  redis:
-    container_name: redis
+  godev-redis:
+    container_name: godev-redis
     image: redis:7.2-alpine
     command: redis-server --port ${REDIS_PORT}
     expose:
