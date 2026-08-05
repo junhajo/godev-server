@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 
-ARG GO_VERSION=1.25.5 \
+ARG GO_VERSION=1.25.12 \
     UID=5000 \
     GID=2000 \
     DEBIAN_FRONTEND=noninteractive
